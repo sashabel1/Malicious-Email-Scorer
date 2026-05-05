@@ -1,62 +1,74 @@
 # Malicious-Email-Scorer
+A Smart Gmail Security Add-on for Real-Time Phishing Detection
 
-Shield Malware Scorer is a security-focused Gmail add-on that provides real-time phishing detection and risk assessment. It evaluates incoming messages through a transparent 5-point security scan to help users identify malicious intent before interacting with content.
+Shield Malware Scorer is a specialized security tool designed to identify phishing attempts and malicious intent directly within the Gmail interface. It evaluates incoming messages through a transparent 5-point security scan, providing users with a comprehensive risk assessment before they interact with potentially dangerous content.
 
-🛡 Implemented Features: The 5-Point Scan
-1. Personal Blacklist
-Users can manually flag dangerous senders. Once blacklisted, all future emails from that address are automatically assigned a maximum risk score (100).
+🛡️ Key Features: The 5-Point Scan
+1️⃣ Personal Blacklist
+Empowers users to take control of their inbox security.
 
-2. Domain Identity (Typosquatting)
-The system uses the Levenshtein Distance algorithm to detect brand impersonation.
+Manual Flagging: Users can manually block dangerous or repetitive senders.
 
-What it is: It measures the edit distance (insertions, deletions, substitutions) between strings.
+Instant Enforcement: Once an address is blacklisted, all future emails from that sender are automatically assigned a maximum Risk Score of 100.
 
-Implementation: If a sender's domain is within 1 or 2 edits of a trusted brand (e.g., amaz0n.com vs amazon.com), it is flagged as a high-confidence threat.
+2️⃣ Domain Identity (Typosquatting)
+Detects sophisticated brand impersonation using the Levenshtein Distance algorithm.
 
-3. Email Authentication Check
-The scanner verifies three critical hidden security standards in the email headers:
+What is it?
+It measures "edit distance"—the number of character changes (insertions, deletions, or substitutions) needed to turn one string into another.
 
-SPF (Sender Policy Framework): Validates if the sending server is authorized.
+The Logic: If a sender’s domain is only 1 or 2 edits away from a trusted brand (e.g., amaz0n.com vs. amazon.com), the system flags it as a high-confidence threat.
 
-DKIM (DomainKeys Identified Mail): Uses a digital signature to ensure the content was not tampered with.
+3️⃣ Email Authentication Check
+The scanner performs a deep-dive into hidden email headers to verify industry-standard security protocols:
 
-DMARC: A policy layer that ties SPF and DKIM together to prevent spoofing.
+SPF (Sender Policy Framework): Validates that the sending server is authorized by the domain owner.
 
-4. Link Safety Analysis
-A deep heuristic scan that analyzes link behavior:
+DKIM (DomainKeys Identified Mail): Uses digital signatures to ensure the email content wasn't tampered with during transit.
 
-Volume: Flags emails with an unusually high number of links.
+DMARC: A critical policy layer that ties SPF and DKIM together to prevent advanced spoofing.
 
-Obfuscation: Detects URL shorteners and Open Redirects (links that use trusted domains to mask a malicious destination).
+4️⃣ Link Safety Analysis
+A heuristic scan that analyzes the behavior and structure of embedded links:
 
-5. AI Intent Analysis (Current: Mock / Future: Gemini API)
-This signal analyzes the psychological tone of the message to identify social engineering.
+Volume Detection: Flags emails containing an unusually high number of links, a common tactic in mass phishing.
 
-Current State: Implemented as a rule-based Mock API that identifies high-risk keywords and urgent phrasing.
+Obfuscation Detection: Identifies URL shorteners and Open Redirects—malicious links that use trusted domains (like Google) as a "mask" to redirect users to scam sites.
 
-Improvement Path: Designed to integrate with the Gemini 1.5 Flash API using a specialized system prompt for deep behavioral analysis.
+5️⃣ AI Intent Analysis
+Analyzes the psychological tone of the message to identify social engineering tactics.
+
+Current State: Operates via a rule-based Mock API that identifies high-risk keywords and urgent phrasing.
+
+Future Roadmap: Designed for full integration with the Gemini 1.5 Flash API to perform deep behavioral and contextual analysis.
 
 💾 Technical Decisions: Why PropertiesService?
-The project utilizes Google's native PropertiesService.getUserProperties() for data persistence:
+Rather than using an external database, this project utilizes Google’s native PropertiesService.getUserProperties() for data persistence.
 
-Performance: Near-instant read/write operations within the Apps Script environment.
+⚡ Performance: Provides near-instant read/write operations within the Apps Script environment.
 
-Privacy: Data is scoped strictly to the individual user's account, ensuring high data security.
+🔒 Privacy: Data is scoped strictly to the individual user’s account, ensuring high security and no cross-user data exposure.
 
-Maintenance: Removes the need for external database management (like SQL or Firebase) for a lightweight, self-contained solution.
+🛠️ Maintenance: Eliminates the need for external server management (like SQL or Firebase), resulting in a lightweight and self-contained solution.
 
-🚀 Deployment
-Create a new project in Google Apps Script.
+🚀 Deployment Instructions
+Follow these steps to deploy the add-on to your environment:
 
-Copy the provided .gs and appsscript.json files.
+Create Project: Open Google Apps Script and create a new project.
 
-Set Script Property: Add your GEMINI_API_KEY in the Project Settings.
+Copy Files: Copy the provided .gs files and the appsscript.json manifest into your project.
 
-Test Deployment: Click Deploy > Test Deployments > Install.
+Configure API: In Project Settings, add a new Script Property:
+
+Key: GEMINI_API_KEY
+
+Value: [Your Gemini API Key]
+
+Install: Click Deploy > Test Deployments > Install.
 
 ⚠️ Known Limitations & Future Roadmap
-AI Engine Enhancement: The current AI analysis is a rule-based mock. Transitioning to a live LLM API (like Gemini) would provide significantly better detection of complex psychological manipulation.
+AI Engine: The current analysis is a rule-based mock. Moving to a live LLM API (Gemini) is the priority to improve detection of complex manipulation.
 
-Dynamic Threat Intelligence: The brand list for typosquatting detection is currently hardcoded in Constants.gs. Future versions could integrate with Google Safe Browsing or the VirusTotal API for real-time, global threat intelligence.
+Threat Intelligence: Typosquatting brands are currently hardcoded in Constants.gs. Future iterations will integrate with the Google Safe Browsing or VirusTotal API for real-time global updates.
 
-Spam Folder Restriction: Due to Google’s native security architecture, third-party add-ons are often restricted from running active scripts in the Spam folder to prevent accidental execution of malicious code.
+Spam Folder Restrictions: Due to Google’s native security architecture, third-party add-ons are restricted from running active scripts in the Spam folder to prevent the accidental execution of malicious code.
