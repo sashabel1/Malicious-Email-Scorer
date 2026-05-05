@@ -1,11 +1,11 @@
-# 🛡️ Shield Malware Scorer
+# Shield Malware Scorer
 **A Smart Gmail Security Add-on for Real-Time Phishing Detection**
 
-Shield Malware Scorer is a specialized security tool designed to identify phishing attempts and malicious intent directly within the Gmail interface. It evaluates incoming messages through a **transparent 5-point security scan**, providing users with a comprehensive risk assessment before they interact with potentially dangerous content.
+Shield Malware Scorer is a specialized security tool designed to identify phishing attempts and malicious intent directly within the Gmail interface. It evaluates incoming messages through a **transparent 5 point security scan**, providing users with a comprehensive risk assessment before they interact with potentially dangerous content.
 
 ---
 
-## 🛡️ Key Features: The 5-Point Scan
+##  Key Features: The 5-Point Scan
 
 ### 1️⃣ Personal Blacklist
 Empowers users to take control of their inbox security.
@@ -18,7 +18,7 @@ Empowers users to take control of their inbox security.
 Detects sophisticated brand impersonation using the **Levenshtein Distance algorithm**.
 
 > **What is it?**
-> It measures "edit distance"—the number of character changes (insertions, deletions, or substitutions) needed to turn one string into another.
+> It measures "edit distance" -> the number of character changes (insertions, deletions, or substitutions) needed to turn one string into another.
 
 * **The Logic:** If a sender’s domain is only 1 or 2 edits away from a trusted brand (e.g., `amaz0n.com` vs. `amazon.com`), the system flags it as a high-confidence threat.
 
@@ -50,9 +50,9 @@ Analyzes the psychological tone of the message to identify social engineering ta
 
 Rather than using an external database, this project utilizes Google’s native `PropertiesService.getUserProperties()` for data persistence.
 
-* **⚡ Performance:** Provides near-instant read/write operations within the Apps Script environment.
-* **🔒 Privacy:** Data is scoped strictly to the individual user’s account, ensuring high security and no cross-user data exposure.
-* **🛠️ Maintenance:** Eliminates the need for external server management (like SQL or Firebase), resulting in a lightweight and self-contained solution.
+* ** Performance:** Provides near-instant read/write operations within the Apps Script environment.
+* ** Privacy:** Data is scoped strictly to the individual user’s account, ensuring high security and no cross-user data exposure.
+* ** Maintenance:** Eliminates the need for external server management (like SQL or Firebase), resulting in a lightweight and self-contained solution.
 
 ---
 
