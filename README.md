@@ -60,12 +60,12 @@ Rather than using an external database, this project utilizes Google’s native 
 
 Follow these steps to deploy the add-on to your environment:
 
-1. **Create Project:** Open [Google Apps Script](https://script.google.com/) and create a new project.
-2. **Copy Files:** Copy the provided `.gs` files and the `appsscript.json` manifest into your project.
-3. **Configure API:** In **Project Settings**, add a new Script Property:
+1. *Create Project:* Open [Google Apps Script](https://script.google.com/) and create a new project.
+2. *Copy Files:* Copy the provided `.gs` files and the `appsscript.json` manifest into your project.
+3. *Configure API:* In **Project Settings**, add a new Script Property:
    * **Key:** `GEMINI_API_KEY`
    * **Value:** [Your Gemini API Key]
-4. **Install:** Click **Deploy** > **Test Deployments** > **Install**.
+4. *Install:* Click **Deploy** > **Test Deployments** > **Install**.
 
 ---
 
