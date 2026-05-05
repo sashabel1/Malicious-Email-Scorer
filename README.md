@@ -50,9 +50,9 @@ Analyzes the psychological tone of the message to identify social engineering ta
 
 Rather than using an external database, this project utilizes Google’s native `PropertiesService.getUserProperties()` for data persistence.
 
-* ** Performance:** Provides near-instant read/write operations within the Apps Script environment.
-* ** Privacy:** Data is scoped strictly to the individual user’s account, ensuring high security and no cross-user data exposure.
-* ** Maintenance:** Eliminates the need for external server management (like SQL or Firebase), resulting in a lightweight and self-contained solution.
+* *Performance:* Provides near-instant read/write operations within the Apps Script environment.
+* *Privacy:* Data is scoped strictly to the individual user’s account, ensuring high security and no cross-user data exposure.
+* *Maintenance:* Eliminates the need for external server management (like SQL or Firebase), resulting in a lightweight and self-contained solution.
 
 ---
 
