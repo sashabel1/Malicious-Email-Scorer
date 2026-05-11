@@ -8,6 +8,16 @@
 //  CORE RISK CALCULATOR
 // ============================================================
 
+/**
+ * The core engine that evaluates an email across a 5-point security scan.
+ * Calculates a cumulative risk score and determines the final verdict.
+ * * @param {string} sender - The raw sender string (e.g., "Name <email@domain.com>").
+ * @param {string} subject - The subject line of the email.
+ * @param {Array<string>|null} links - An array of URLs extracted from the email body.
+ * @param {string} rawContent - The raw headers and content of the email (used for SPF/DKIM/DMARC checks).
+ * @param {string} body - The plain text body of the email.
+ * @returns {Object} An analysis object containing the final score, verdict, detailed signal explanations, and internal reasoning.
+ */
 function calculateRisk(sender, subject, links, rawContent, body) {
   var score = 0;
   var finalSignals = []; 
@@ -123,7 +133,12 @@ function calculateRisk(sender, subject, links, rawContent, body) {
 // ============================================================
 //  SIGNAL HELPERS
 // ============================================================
-
+/**
+ * Generates an automatic "Malicious" verdict for senders found on the user's personal blacklist.
+ * Skips the rest of the scanning process to save execution time.
+ * * @param {string} senderEmail - The blacklisted sender's email address.
+ * @returns {Object} An analysis object pre-filled with a maximum risk score (100) and skipped signals.
+ */
 function generateBlacklistVerdict(senderEmail) {
   return {
     score:       100,
@@ -141,6 +156,13 @@ function generateBlacklistVerdict(senderEmail) {
   };
 }
 
+/**
+ * Calculates the Levenshtein Distance between two strings.
+ * Used to detect "Typosquatting" by measuring the number of character edits needed to change the sender's domain into a known brand domain.
+ * * @param {string} a - The first string (e.g., the sender's domain).
+ * @param {string} b - The second string (e.g., a trusted brand domain like 'amazon.com').
+ * @returns {number} The edit distance (number of insertions, deletions, or substitutions).
+ */
 function getLevenshteinDistance(a, b) {
   if (a.length === 0) return b.length;
   if (b.length === 0) return a.length;
@@ -165,6 +187,11 @@ function getLevenshteinDistance(a, b) {
   return matrix[b.length][a.length];
 }
 
+/**
+ * Analyzes an array of URLs for suspicious structures, such as URL shorteners or open redirects.
+ * * @param {Array<string>} links - An array of URLs extracted from the email.
+ * @returns {Object} An object containing the calculated score penalty and an array of reasons for the penalty.
+ */
 function analyzeLinksDeep(links) {
   var linkScorePenalty = 0;
   var linkReasons      = [];
@@ -191,6 +218,14 @@ function analyzeLinksDeep(links) {
   return { penalty: linkScorePenalty, reasons: linkReasons };
 }
 
+/**
+ * Evaluates the psychological tone of the email text using a rule-based mock API.
+ * Detects common social engineering tactics like artificial urgency or financial pretexting.
+ * Note: Designed to be replaced with a live LLM API (e.g., Gemini) in future iterations.
+ * * @param {string} subject - The subject line of the email.
+ * @param {string} body - The plain text body of the email.
+ * @returns {Object} A simulated AI analysis object containing detection status, confidence level, and identified tactics.
+ */
 function analyzeSocialEngineering(subject, body) {
   var textLower = (subject + " " + body).toLowerCase();
 
