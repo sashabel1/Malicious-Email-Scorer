@@ -2,6 +2,12 @@
 //  UI HELPERS
 // ============================================================
 
+/**
+ * Translates the technical risk analysis object into a user-friendly HTML string.
+ * This explanation is displayed on the main Add-on screen to help non-technical users understand the verdict.
+ * * @param {Object} analysis - The final analysis object returned by calculateRisk().
+ * @returns {string} An HTML-formatted string containing the simplified explanation and recommendation.
+ */
 function generateSimpleExplanation(analysis) {
   if (analysis.blacklisted) {
     return "🚫 <b>Blacklisted Sender!</b> You previously flagged this sender as dangerous. This email is automatically marked as Malicious.";
@@ -32,6 +38,11 @@ function generateSimpleExplanation(analysis) {
   return text;
 }
 
+/**
+ * Provides a static educational dictionary of the 5 security signals.
+ * Used to populate the "Signal Explanations" educational view.
+ * * @returns {Array<Object>} An array of objects, where each object contains the title, meaning, and an actionable tip for a specific security signal.
+ */
 function generateSignalExplanations() {
   return [
     {
@@ -67,6 +78,12 @@ function generateSignalExplanations() {
 //  CALLBACKS / NAVIGATION
 // ============================================================
 
+/**
+ * Builds and navigates to a new UI card that explains the 5 core security signals.
+ * Triggered by the "Signals Explanations" button on the main screen.
+ * * @param {Object} e - The event object from the UI interaction.
+ * @returns {GoogleAppsScript.Card_Service.ActionResponse} A navigation response that pushes the newly built explanation card onto the screen.
+ */
 function showSignalExplanations(e) {
   var explanations = generateSignalExplanations();
 
