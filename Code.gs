@@ -4,6 +4,13 @@
 //  PURPOSE: Entry point — triggered when a Gmail message is opened
 // ============================================================
 
+/**
+ * The primary entry point for the Gmail Add-on.
+ * Triggered automatically by Google Workspace when a user opens an email.
+ * This function handles data extraction, calls the risk analysis engine, and dynamically builds the graphical user interface.
+ * * @param {Object} e - The event object provided by the Gmail contextual trigger. Contains metadata such as the current message ID and authorization tokens.
+ * @returns {Array<GoogleAppsScript.Card_Service.Card>} An array containing the constructed UI Card to be rendered in the Gmail sidebar.
+ */
 function buildAddOn(e) {
   var messageId   = e.gmail.messageId;
   var accessToken = e.gmail.accessToken;
